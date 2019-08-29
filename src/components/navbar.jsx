@@ -4,6 +4,8 @@ import React from "react";
 // sfc
 
 const Navbar = ({ totalCounters }) => {
+  console.log("Navbar - Rendered");
+
   return (
     <nav className="navbar navbar-light bg-light">
       <a className="navbar-brand" href="https://www.google.com">
