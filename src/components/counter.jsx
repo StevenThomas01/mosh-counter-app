@@ -11,11 +11,6 @@ class Counter extends Component {
     }
   }
 
-  componentWillUnmount() {
-    // just before component is removed from Dom
-    console.log("Counter - Unmount");
-  }
-
   render() {
     console.log("Counter - Rendered");
 
