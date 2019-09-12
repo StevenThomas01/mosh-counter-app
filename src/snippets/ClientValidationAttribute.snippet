@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>client validation attribute</Title>
+      <Shortcut>cva</Shortcut>
+      <Description>Code snippet for validation</Description>
+      <Author>KL</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>1</ID>
+          <ToolTip>1</ToolTip>
+          <Default></Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[namespace IE.Web.Portal.Validation
+{
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using Resources;
+    using Web.Validation;
+
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+    public class CheckGreaterThanCurrentBalanceAttribute : ClientValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            if (value == null) return ValidationResult.Success;
+
+            var model = (ViewModels.CardServicing.ChangeLimit.ChangeLimitViewModel)validationContext.ObjectInstance;
+            var amount = Convert.ToDecimal(value);
+            var currentBalanceFivePercent = Convert.ToDecimal(model.CurrentBalanceFivePercent);
+
+            if (model.CurrentBalanceFivePercent != null)
+            {
+                if (amount < currentBalanceFivePercent)
+                {
+                    return new ValidationResult(ValidationResource.This_must_be_higher_than_your_current_balance_or_over_);
+                }
+            }
+
+            return ValidationResult.Success;
+        }
+
+        public override string ValidationName()
+        {
+            return "check-greater-than-current-balance";
+        }
+    }
+}]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
