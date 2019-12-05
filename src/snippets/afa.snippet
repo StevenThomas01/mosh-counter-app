@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>action filter attribute</Title>
+      <Shortcut>afa</Shortcut>
+      <Description>Code snippet for OnResultExecuted</Description>
+      <Author>KL</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>2</ID>
+          <ToolTip>2</ToolTip>
+          <Default></Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[
+            //ActionFilterAttribute – to retrieve response status of a redirect
+            public class RedirectToSingleSignOnFilter : ActionFilterAttribute
+            {
+                protected static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+                public override void OnResultExecuted(ResultExecutedContext filterContext)
+                {
+                    log.Info(string.Format("Redirect from Interact to IAM. URL: {0}. Status: {1}.",
+                        filterContext.HttpContext.Response.RedirectLocation,
+                        filterContext.HttpContext.Response.Status));
+                }
+            }]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
